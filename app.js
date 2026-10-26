@@ -9,27 +9,21 @@ const createNewTaskElement = function (taskString) {
   const label = document.createElement('label');
   const editInput = document.createElement('input');
   const editButton = document.createElement('button');
-
   const deleteButton = document.createElement('button');
   const deleteButtonImg = document.createElement('img');
 
   label.innerText = taskString;
   label.className = 'task';
-
   checkBox.type = 'checkbox';
   editInput.type = 'text';
   editInput.className = 'task';
   editButton.innerText = 'Edit'; //innerText encodes special characters, innerHTML does not.
   editButton.className = 'edit';
-
   deleteButton.className = 'delete';
   deleteButtonImg.src = './remove.svg';
+
   deleteButton.appendChild(deleteButtonImg);
-  listItem.appendChild(checkBox);
-  listItem.appendChild(label);
-  listItem.appendChild(editInput);
-  listItem.appendChild(editButton);
-  listItem.appendChild(deleteButton);
+  listItem.append(checkBox, label, editInput, editButton, deleteButton);
   return listItem;
 };
 
