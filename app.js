@@ -1,6 +1,6 @@
-const taskInput = document.getElementById('new-task');
+const newTaskInput = document.getElementById('new-task');
 const addButton = document.getElementsByTagName('button')[0];
-const incompleteTaskHolder = document.getElementById('incompleteTasks');
+const incompleteTaskHolder = document.getElementById('incomplete-tasks');
 const completedTasksHolder = document.getElementById('completed-tasks');
 
 const createNewTaskElement = function (taskString) {
@@ -34,12 +34,12 @@ const createNewTaskElement = function (taskString) {
 };
 
 const addTask = function () {
-  if (!taskInput.value) return;
-  const listItem = createNewTaskElement(taskInput.value);
+  if (!newTaskInput.value) return;
+  const listItem = createNewTaskElement(newTaskInput.value);
   incompleteTaskHolder.appendChild(listItem);
-  bindTaskEvents(listItem, taskCompleted);
+  bindTaskHandlers(listItem, taskCompleted);
 
-  taskInput.value = '';
+  newTaskInput.value = '';
 };
 
 const editTask = function () {
@@ -63,13 +63,13 @@ const editTask = function () {
 
 const deleteTask = function () {
   const listItem = this.parentNode;
-  const ul = listItem.parentNode;
-  ul.removeChild(listItem);
+  const list = listItem.parentNode;
+  list.removeChild(listItem);
 };
 
 const moveTask = function (listItem, targetList, nextHandler) {
   targetList.appendChild(listItem);
-  bindTaskEvents(listItem, nextHandler);
+  bindTaskHandlers(listItem, nextHandler);
 };
 
 const taskCompleted = function () {
@@ -82,7 +82,7 @@ const taskIncomplete = function () {
 
 addButton.addEventListener('click', addTask);
 
-const bindTaskEvents = function (taskListItem, checkBoxEventHandler) {
+const bindTaskHandlers = function (taskListItem, checkBoxEventHandler) {
   const checkBox = taskListItem.querySelector('input[type=checkbox]');
   const editButton = taskListItem.querySelector('button.edit');
   const deleteButton = taskListItem.querySelector('button.delete');
@@ -93,9 +93,9 @@ const bindTaskEvents = function (taskListItem, checkBoxEventHandler) {
 };
 
 for (let i = 0; i < incompleteTaskHolder.children.length; i++) {
-  bindTaskEvents(incompleteTaskHolder.children[i], taskCompleted);
+  bindTaskHandlers(incompleteTaskHolder.children[i], taskCompleted);
 }
 
 for (let i = 0; i < completedTasksHolder.children.length; i++) {
-  bindTaskEvents(completedTasksHolder.children[i], taskIncomplete);
+  bindTaskHandlers(completedTasksHolder.children[i], taskIncomplete);
 }
